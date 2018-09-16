@@ -1,6 +1,6 @@
 const baseURL = 'http://localhost:8000/'
 const headers = new Headers({
-    Authorization: 'Token 19a89994fb95a9f2811c0c3edf5c2890d38019b1'
+    'Content-Type': 'application/json'
 })
 
 const request = {
@@ -30,11 +30,11 @@ const request = {
 }
 
 function setToken(token) {
-    // headers.set('Authorization', `Token ${token}`)
+    headers.set('Authorization', `Token ${token}`)
 }
 
 function removeToken() {
-    // headers.delete('Authorization')
+    headers.delete('Authorization')
 }
 
 export { request, setToken, removeToken }

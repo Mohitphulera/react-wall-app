@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.7.1",
+    "font-awesome": "^4.7.0",
     "moment": "^2.22.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
-    "react-scripts": "1.1.5"
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.5",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
