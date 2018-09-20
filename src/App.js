@@ -4,26 +4,27 @@ import { setUser } from './store'
 import './App.css'
 import Feed from './views/Feed'
 import LoginModal from './components/LoginModal'
+import PostModal from './components/PostModal'
 import { request, removeToken } from './services/request'
+
+const initialState = {
+    show: {
+        login: false,
+        register: false,
+        post: false
+    }
+}
 
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            show: {
-                login: false,
-                register: false,
-                post: false
-            }
-        }
+        this.state = initialState
     }
 
     componentDidMount() {
         window.addEventListener('keydown', ({ key }) => {
             if (key === 'Escape') {
-                for (let modal in this.show) {
-                    this.show[modal] = false
-                }
+                this.setState(initialState)
             }
         })
     }
@@ -89,8 +90,9 @@ class App extends Component {
                         {navItems}
                     </div>
                 </div>
-                <Feed />
-                {(show.login && <LoginModal close={() => showLogin(false)} />) || null}
+                <Feed ref={instance => (this.feed = instance)} />
+                {show.login && <LoginModal close={() => showLogin(false)} />}
+                <PostModal close={() => showPost(false)} hidden={!show.post} postCreated={() => this.feed.retrievePosts()} />
             </div>
         )
     }

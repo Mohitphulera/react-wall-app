@@ -33,7 +33,6 @@ export default class Feed extends Component {
     retrievePosts() {
         request
             .get('posts/')
-            .then(response => (response.ok ? response.json() : new Error()))
             .then(posts => {
                 if (posts) {
                     this.setState({

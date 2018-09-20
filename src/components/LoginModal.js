@@ -14,6 +14,13 @@ class LoginModal extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
+        this.timeout = null
+    }
+
+    componentWillUnmount() {
+        if (this.timeout) {
+            clearTimeout(this.timeout)
+        }
     }
 
     render() {
@@ -97,11 +104,9 @@ class LoginModal extends Component {
         }
 
         return (
-            <div>
-                <div className="modal is-active">
-                    <div className="modal-background" onClick={() => this.close()} />
-                    {modalCard}
-                </div>
+            <div className="modal is-active">
+                <div className="modal-background" onClick={() => this.close()} />
+                {modalCard}
             </div>
         )
     }
@@ -114,7 +119,6 @@ class LoginModal extends Component {
         }
         request
             .post('auth/', user)
-            .then(response => (response.ok ? response.json() : new Error()))
             .then(data => {
                 if (data && data.token) {
                     setToken(data.token)
@@ -128,7 +132,7 @@ class LoginModal extends Component {
                         loading: false
                     })
                     // Auto close
-                    setTimeout(() => {
+                    this.timeout = setTimeout(() => {
                         // Reset username/password
                         this.reset()
                         this.props.close()
@@ -143,13 +147,10 @@ class LoginModal extends Component {
             })
     }
 
-    reset() {
-        this.setState(initialState)
-    }
-
     close() {
-        this.reset()
-        this.props.close()
+        if (!this.state.loading) {
+            this.props.close()
+        }
     }
 }
 
