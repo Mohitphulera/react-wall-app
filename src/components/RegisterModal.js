@@ -38,7 +38,7 @@ export default class RegisterModal extends Component {
                 if (errors[key]) {
                     errorMessages[key] = <p className="help is-danger">{errors[key]}</p>
                 } else {
-                    errorMessages[key] = <p class="help">By clicking submit, you consent to receive emails from us.</p>
+                    errorMessages[key] = <p className="help">By clicking submit, you consent to receive emails from us.</p>
                 }
             }
         }
@@ -191,20 +191,20 @@ export default class RegisterModal extends Component {
             .then(() => {
                 this.setState({ loading: false, registered: true })
             })
-            .catch(({ response } = {}) => {
+            .catch(response => {
                 // Add errors
                 let errorMessages = {}
-                if (response && typeof response.data === 'object') {
-                    for (let key in response.data) {
+                if (response && typeof response === 'object') {
+                    for (let key in response) {
                         if (this.state.errors.hasOwnProperty(key)) {
-                            errorMessages[key] = response.data[key].join(' ')
+                            errorMessages[key] = response[key].join(' ')
                         }
                     }
                 } else {
                     errorMessages.generic = 'Server failure. Please try again later.'
                 }
                 this.setState({
-                    errors: errorMessages,
+                    errors: { ...initialState.errors, ...errorMessages },
                     loading: false
                 })
             })
