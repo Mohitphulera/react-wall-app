@@ -133,8 +133,6 @@ class LoginModal extends Component {
                     })
                     // Auto close
                     this.timeout = setTimeout(() => {
-                        // Reset username/password
-                        this.reset()
                         this.props.close()
                     }, 3000)
                 }
