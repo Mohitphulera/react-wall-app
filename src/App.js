@@ -6,6 +6,7 @@ import Feed from './views/Feed'
 import LoginModal from './components/LoginModal'
 import PostModal from './components/PostModal'
 import { request, removeToken } from './services/request'
+import RegisterModal from './components/RegisterModal'
 
 const initialState = {
     show: {
@@ -93,6 +94,7 @@ class App extends Component {
                 <Feed ref={instance => (this.feed = instance)} />
                 {show.login && <LoginModal close={() => showLogin(false)} />}
                 <PostModal close={() => showPost(false)} hidden={!show.post} postCreated={() => this.feed.retrievePosts()} />
+                {show.register && <RegisterModal close={() => showRegister(false)} />}
             </div>
         )
     }
